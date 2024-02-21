@@ -1,3 +1,6 @@
+import {createGlobalStyle} from 'styled-components';
+
+const GlobalStyles=createGlobalStyle`
 :root{
   --primary-box:1px solid black
 }
@@ -19,3 +22,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+`
+
+export default GlobalStyles;
