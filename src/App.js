@@ -12,6 +12,7 @@ import { useState } from "react";
 import Loader from "./components/Loader";
 import Form from "./components/Form";
 import List from "./components/List";
+import { BrowserRouter, Link as SampleLink } from "react-router-dom";
 
 const ThemeSection = styled.article`
   color: ${({ theme }) => theme.color};
@@ -47,6 +48,14 @@ const DarkTheme = {
   background: "black",
 };
 
+const MyLink = ({ isActive, children, ...props }) => {
+  return <SampleLink {...props}>{children}</SampleLink>;
+};
+const Link = styled(MyLink)`
+text-decoration: none;
+  color: ${({ isActive }) => (isActive ? "green" : "red")};
+`;
+
 function App() {
   const [isBaseTheme, setIsBaseTheme] = useState(false);
 
@@ -55,49 +64,55 @@ function App() {
   return (
     <div className="App">
       <GlobalStyles />
-      <List />
-      <Form />
-      <Loader />
-      <ThemeProvider theme={isBaseTheme ? BaseTheme : DarkTheme}>
-        <ThemeSection>
-          <h1>Theme Section</h1>
-          <p>Theme content</p>
-        </ThemeSection>
-        <button onClick={toggleTheme}>Toggle Theme</button>
-        <HeaderSection>
-          <LogoBox>
-            <HeaderNavLinks href="/">
-              <img
-                src="//www.myperfectcv.co.uk/blobimages/sem-mpintl-images/muk/common/images/logo.svg"
-                alt="logo"
-              />
-            </HeaderNavLinks>
-          </LogoBox>
-          <HeaderNavBox>
-            <HeaderNavLinks href="//www.google.com">Google</HeaderNavLinks>
-            <HeaderNavLinks href="//www.youtube.com">Youtube</HeaderNavLinks>
-          </HeaderNavBox>
-        </HeaderSection>
-        <RedButton>Click Me</RedButton>
-        <YellowButton>Click Me</YellowButton>
-        <Button variant="outlined">Outlined</Button>
-        <DerivativeButton variant="outlined">Outlined</DerivativeButton>
-        <DerivativeButton largeBtn variant="outlined">
-          largeBtn Outlined
-        </DerivativeButton>
-        <DerivativeButton
-          variant="outlined"
-          as={"a"}
-          href="//google.com"
-          target="_blank"
-        >
-          Anchor using as tag
-        </DerivativeButton>
-        <ComplexTitle />
-        <ComplexTitle color="brown" />
-        <AlternateComplexTitle />
-        <Card />
-      </ThemeProvider>
+      <BrowserRouter>
+        <Link isActive to={"/"}>
+          HEy Active
+        </Link>
+        <Link to={"/"}>HEy Inactive</Link>
+        <List />
+        <Form />
+        <Loader />
+        <ThemeProvider theme={isBaseTheme ? BaseTheme : DarkTheme}>
+          <ThemeSection>
+            <h1>Theme Section</h1>
+            <p>Theme content</p>
+          </ThemeSection>
+          <button onClick={toggleTheme}>Toggle Theme</button>
+          <HeaderSection>
+            <LogoBox>
+              <HeaderNavLinks href="/">
+                <img
+                  src="//www.myperfectcv.co.uk/blobimages/sem-mpintl-images/muk/common/images/logo.svg"
+                  alt="logo"
+                />
+              </HeaderNavLinks>
+            </LogoBox>
+            <HeaderNavBox>
+              <HeaderNavLinks href="//www.google.com">Google</HeaderNavLinks>
+              <HeaderNavLinks href="//www.youtube.com">Youtube</HeaderNavLinks>
+            </HeaderNavBox>
+          </HeaderSection>
+          <RedButton>Click Me</RedButton>
+          <YellowButton>Click Me</YellowButton>
+          <Button variant="outlined">Outlined</Button>
+          <DerivativeButton variant="outlined">Outlined</DerivativeButton>
+          <DerivativeButton largeBtn variant="outlined">
+            largeBtn Outlined
+          </DerivativeButton>
+          <DerivativeButton
+            variant="outlined"
+            as={"a"}
+            href="//google.com"
+            target="_blank"
+          >
+            Anchor using as tag
+          </DerivativeButton>
+          <ComplexTitle />
+          <ComplexTitle color="brown" />
+          <AlternateComplexTitle />
+          <Card />
+        </ThemeProvider>
+      </BrowserRouter>
     </div>
   );
 }
